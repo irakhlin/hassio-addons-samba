@@ -1,4 +1,4 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=ghcr.io/hassio-addons/base:12.0.0
 FROM $BUILD_FROM
 
 ENV LANG C.UTF-8
@@ -8,7 +8,7 @@ COPY rootfs /
 
 # Setup base
 ARG BUILD_ARCH
-ARG CLI_VERSION
+ARG CLI_VERSION=4.35.0
 RUN \
     curl -Lso /usr/bin/ha "https://github.com/home-assistant/cli/releases/download/${CLI_VERSION}/ha_${BUILD_ARCH}" \
     && chmod a+x /usr/bin/ha \
