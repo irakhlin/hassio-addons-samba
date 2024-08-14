@@ -74,8 +74,7 @@ function cleanup-backups-local {
     local name
 
     [ "$KEEP_LOCAL" == "all" ] && return 0
-
-    snaps=$(ha backups --raw-json | jq -c '.data.backups[] | {date,slug,name}' | sort -r)
+    snaps=$(ha backups --raw-json | jq -c '.data.backups[] | select( .location == null) | {date,slug,name}' | sort -r)
     bashio::log.debug "List of local backups:\n$snaps"
 
     echo "$snaps" | tail -n +$((KEEP_LOCAL + 1)) | while read -r backup; do
