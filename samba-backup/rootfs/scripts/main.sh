@@ -30,6 +30,8 @@ function create-backup {
         for fol in "${folders[@]}"; do [[ ! $EXCLUDE_FOLDERS =~ $fol ]] && args+=("-f" "$fol"); done
     fi
 
+    #This is needed to store on local disk
+    args+=("--location" "")
     # run the command
     bashio::log.info "Creating backup \"${SNAP_NAME}\""
     SLUG="$(ha backups new "${args[@]}" --raw-json | jq -r .data.slug)"
